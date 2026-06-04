@@ -16,11 +16,36 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
         "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
@@ -61,6 +86,14 @@
         "description": "django",
         "isExtraImport": true,
         "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "django.utils",
+        "description": "django.utils",
+        "isExtraImport": true,
+        "detail": "django.utils",
         "documentation": {}
     },
     {
@@ -179,11 +212,56 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "attendance.migrations.0002_attendancerecord",
+        "description": "attendance.migrations.0002_attendancerecord",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('attendance', '0001_initial'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='AttendanceRecord',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('date', models.DateField()),",
+        "detail": "attendance.migrations.0002_attendancerecord",
+        "documentation": {}
+    },
+    {
         "label": "StudentAdmin",
         "kind": 6,
         "importPath": "attendance.admin",
         "description": "attendance.admin",
-        "peekOfCode": "class StudentAdmin(admin.ModelAdmin):\n    list_display = ('student_id', 'first_name', 'last_name', 'class_name', 'email', 'phone')\n    search_fields = ('student_id', 'first_name', 'last_name', 'class_name')\n    list_filter = ('class_name',)",
+        "peekOfCode": "class StudentAdmin(admin.ModelAdmin):\n    list_display = ('student_id', 'first_name', 'last_name', 'class_name', 'email', 'phone')\n    search_fields = ('student_id', 'first_name', 'last_name', 'class_name')\n    list_filter = ('class_name',)\n@admin.register(AttendanceRecord)\nclass AttendanceRecordAdmin(admin.ModelAdmin):\n    list_display = ('student', 'date', 'status', 'note')\n    list_filter = ('status', 'date')\n    search_fields = ('student__student_id', 'student__first_name', 'student__last_name')\n    date_hierarchy = 'date'",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "AttendanceRecordAdmin",
+        "kind": 6,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "class AttendanceRecordAdmin(admin.ModelAdmin):\n    list_display = ('student', 'date', 'status', 'note')\n    list_filter = ('status', 'date')\n    search_fields = ('student__student_id', 'student__first_name', 'student__last_name')\n    date_hierarchy = 'date'",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "admin.site.site_header",
+        "kind": 5,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "admin.site.site_header = \"Vitality Administration\"\nadmin.site.site_title = \"Vitality Admin Portal\"\nadmin.site.index_title = \"Welcome to Vitality Dashboard\"\n@admin.register(Student)\nclass StudentAdmin(admin.ModelAdmin):\n    list_display = ('student_id', 'first_name', 'last_name', 'class_name', 'email', 'phone')\n    search_fields = ('student_id', 'first_name', 'last_name', 'class_name')\n    list_filter = ('class_name',)\n@admin.register(AttendanceRecord)\nclass AttendanceRecordAdmin(admin.ModelAdmin):",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "admin.site.site_title",
+        "kind": 5,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "admin.site.site_title = \"Vitality Admin Portal\"\nadmin.site.index_title = \"Welcome to Vitality Dashboard\"\n@admin.register(Student)\nclass StudentAdmin(admin.ModelAdmin):\n    list_display = ('student_id', 'first_name', 'last_name', 'class_name', 'email', 'phone')\n    search_fields = ('student_id', 'first_name', 'last_name', 'class_name')\n    list_filter = ('class_name',)\n@admin.register(AttendanceRecord)\nclass AttendanceRecordAdmin(admin.ModelAdmin):\n    list_display = ('student', 'date', 'status', 'note')",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "admin.site.index_title",
+        "kind": 5,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "admin.site.index_title = \"Welcome to Vitality Dashboard\"\n@admin.register(Student)\nclass StudentAdmin(admin.ModelAdmin):\n    list_display = ('student_id', 'first_name', 'last_name', 'class_name', 'email', 'phone')\n    search_fields = ('student_id', 'first_name', 'last_name', 'class_name')\n    list_filter = ('class_name',)\n@admin.register(AttendanceRecord)\nclass AttendanceRecordAdmin(admin.ModelAdmin):\n    list_display = ('student', 'date', 'status', 'note')\n    list_filter = ('status', 'date')",
         "detail": "attendance.admin",
         "documentation": {}
     },
@@ -206,6 +284,24 @@
         "documentation": {}
     },
     {
+        "label": "AttendanceRecordForm",
+        "kind": 6,
+        "importPath": "attendance.forms",
+        "description": "attendance.forms",
+        "peekOfCode": "class AttendanceRecordForm(forms.ModelForm):\n    class Meta:\n        model = AttendanceRecord\n        fields = ['student', 'date', 'status', 'note']\n        widgets = {\n            'date': forms.DateInput(attrs={'type': 'date'}),\n            'note': forms.TextInput(attrs={'placeholder': 'Optional note'}),\n        }\n    def __init__(self, *args, **kwargs):\n        super().__init__(*args, **kwargs)",
+        "detail": "attendance.forms",
+        "documentation": {}
+    },
+    {
+        "label": "AttendanceFilterForm",
+        "kind": 6,
+        "importPath": "attendance.forms",
+        "description": "attendance.forms",
+        "peekOfCode": "class AttendanceFilterForm(forms.Form):\n    student_id = forms.CharField(\n        required=False,\n        label='Student ID',\n        widget=forms.TextInput(attrs={'placeholder': 'Search by ID'}),\n    )\n    month = forms.CharField(\n        required=False,\n        label='Month',\n        widget=forms.TextInput(attrs={'type': 'month'}),",
+        "detail": "attendance.forms",
+        "documentation": {}
+    },
+    {
         "label": "Student",
         "kind": 6,
         "importPath": "attendance.models",
@@ -215,11 +311,20 @@
         "documentation": {}
     },
     {
+        "label": "AttendanceRecord",
+        "kind": 6,
+        "importPath": "attendance.models",
+        "description": "attendance.models",
+        "peekOfCode": "class AttendanceRecord(models.Model):\n    PRESENT = 'present'\n    ABSENT = 'absent'\n    STATUS_CHOICES = [\n        (PRESENT, 'Present'),\n        (ABSENT, 'Absent'),\n    ]\n    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='attendance_records')\n    date = models.DateField()\n    status = models.CharField(max_length=10, choices=STATUS_CHOICES)",
+        "detail": "attendance.models",
+        "documentation": {}
+    },
+    {
         "label": "app_name",
         "kind": 5,
         "importPath": "attendance.urls",
         "description": "attendance.urls",
-        "peekOfCode": "app_name = 'attendance'\nurlpatterns = [\n    path('', views.home, name='home'),\n    path('students/register/', views.register_student, name='register_student'),\n]",
+        "peekOfCode": "app_name = 'attendance'\nurlpatterns = [\n    path('', views.home, name='home'),\n    path('students/register/', views.register_student, name='register_student'),\n    path('attendance/daily/', views.attendance_daily, name='attendance_daily'),\n]",
         "detail": "attendance.urls",
         "documentation": {}
     },
@@ -228,7 +333,7 @@
         "kind": 5,
         "importPath": "attendance.urls",
         "description": "attendance.urls",
-        "peekOfCode": "urlpatterns = [\n    path('', views.home, name='home'),\n    path('students/register/', views.register_student, name='register_student'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('', views.home, name='home'),\n    path('students/register/', views.register_student, name='register_student'),\n    path('attendance/daily/', views.attendance_daily, name='attendance_daily'),\n]",
         "detail": "attendance.urls",
         "documentation": {}
     },
@@ -237,7 +342,16 @@
         "kind": 2,
         "importPath": "attendance.views",
         "description": "attendance.views",
-        "peekOfCode": "def home(request):\n    return render(request, 'attendance/home.html')\ndef register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')\n            return redirect('attendance:register_student')\n    else:",
+        "peekOfCode": "def home(request):\n    return render(request, 'attendance/home.html')\ndef custom_admin(request):\n    return render(request, 'attendance/custom_admin.html')\ndef register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "custom_admin",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def custom_admin(request):\n    return render(request, 'attendance/custom_admin.html')\ndef register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')\n            return redirect('attendance:register_student')\n    else:",
         "detail": "attendance.views",
         "documentation": {}
     },
@@ -247,6 +361,15 @@
         "importPath": "attendance.views",
         "description": "attendance.views",
         "peekOfCode": "def register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')\n            return redirect('attendance:register_student')\n    else:\n        form = StudentRegistrationForm()\n    return render(request, 'attendance/register_student.html', {'form': form})",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "attendance_daily",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def attendance_daily(request):\n    if request.method == 'POST':\n        record_form = AttendanceRecordForm(request.POST)\n        if record_form.is_valid():\n            record, created = AttendanceRecord.objects.update_or_create(\n                student=record_form.cleaned_data['student'],\n                date=record_form.cleaned_data['date'],\n                defaults={\n                    'status': record_form.cleaned_data['status'],\n                    'note': record_form.cleaned_data['note'],",
         "detail": "attendance.views",
         "documentation": {}
     },
@@ -264,7 +387,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-uagf-7h1_4xa$1ixyqj$k7_e78c1nl0f=(i=xpfre#n5z62%f7'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']\n# Application definition\nINSTALLED_APPS = [",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-uagf-7h1_4xa$1ixyqj$k7_e78c1nl0f=(i=xpfre#n5z62%f7'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']\n# Application definition\nINSTALLED_APPS = [",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -273,7 +396,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-uagf-7h1_4xa$1ixyqj$k7_e78c1nl0f=(i=xpfre#n5z62%f7'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']\n# Application definition\nINSTALLED_APPS = [\n    'attendance',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-uagf-7h1_4xa$1ixyqj$k7_e78c1nl0f=(i=xpfre#n5z62%f7'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']\n# Application definition\nINSTALLED_APPS = [\n    'attendance',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -282,7 +405,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "DEBUG = False\nALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']\n# Application definition\nINSTALLED_APPS = [\n    'attendance',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']\n# Application definition\nINSTALLED_APPS = [\n    'attendance',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -363,7 +486,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'Asia/Kolkata'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'Asia/Kolkata'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -372,7 +495,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "TIME_ZONE = 'Asia/Kolkata'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "peekOfCode": "TIME_ZONE = 'Asia/Kolkata'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -381,7 +504,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -390,7 +513,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -399,7 +522,16 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "peekOfCode": "STATIC_URL = '/static/'\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "detail": "attendance_register.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_ROOT",
+        "kind": 5,
+        "importPath": "attendance_register.settings",
+        "description": "attendance_register.settings",
+        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
         "detail": "attendance_register.settings",
         "documentation": {}
     },
@@ -408,7 +540,7 @@
         "kind": 5,
         "importPath": "attendance_register.settings",
         "description": "attendance_register.settings",
-        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
+        "peekOfCode": "MEDIA_URL = '/media/'\nMEDIA_ROOT = BASE_DIR / 'media'",
         "detail": "attendance_register.settings",
         "documentation": {}
     },

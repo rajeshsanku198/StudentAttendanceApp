@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -128,6 +129,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="page">
         <header>
@@ -137,33 +139,140 @@
         </header>
 
         {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if form.non_field_errors %}
-                <div class="error">{{ form.non_field_errors }}</div>
+            <div class="error">{{ form.non_field_errors }}</div>
             {% endif %}
 
             <div class="grid">
-                {% for field in form %}
-                    <div class="field{% if field.name == 'address' or field.name == 'face_image' %} full{% endif %}">
+                <div class="grid">
+                    {% for field in form %}
+                    {% if field.name != 'face_image' %}
+                    <div class="field{% if field.name == 'address' %} full{% endif %}">
                         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                         {{ field }}
+
                         {% for error in field.errors %}
-                            <p class="error">{{ error }}</p>
+                        <p class="error">{{ error }}</p>
                         {% endfor %}
                     </div>
-                {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <hr>
+
+                <h3>Face Registration</h3>
+
+                <div class="field full">
+
+                    <label>Upload Photo</label>
+
+                    {{ form.face_image }}
+
+                    <br><br>
+
+                    <button type="button" id="startCamera">
+                        📷 Start Camera
+                    </button>
+
+                    <button type="button" id="captureBtn">
+                        Capture Face
+                    </button>
+
+                    <br><br>
+
+                    <video id="video" width="400" height="300" autoplay playsinline
+                        style="display:none;border:1px solid #ccc;border-radius:8px;">
+                    </video>
+
+                    <canvas id="canvas" width="400" height="300" style="display:none;">
+                    </canvas>
+
+                    <br>
+
+                    <img id="preview" style="display:none;width:300px;border-radius:8px;">
+
+                    <input type="hidden" name="captured_image" id="captured_image">
+
+                </div>
             </div>
 
             <button type="submit">Save Student</button>
         </form>
     </div>
+
+    <script>
+        let stream = null;
+
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const preview = document.getElementById('preview');
+
+        document.getElementById('startCamera').addEventListener('click', async () => {
+
+            if (!navigator.mediaDevices) {
+                alert("mediaDevices API not available");
+                return;
+            }
+
+            try {
+
+                const stream =
+                    await navigator.mediaDevices.getUserMedia({
+                        video: true
+                    });
+
+                video.srcObject = stream;
+                video.style.display = 'block';
+
+            }
+            catch (err) {
+
+                console.error(err);
+
+                alert(
+                    "Error: " +
+                    err.name +
+                    "\n" +
+                    err.message
+                );
+            }
+
+        });
+
+        document.getElementById('captureBtn').addEventListener('click', () => {
+
+            const ctx = canvas.getContext('2d');
+
+            ctx.drawImage(
+                video,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            const imageData =
+                canvas.toDataURL('image/jpeg');
+
+            document.getElementById('captured_image').value =
+                imageData;
+
+            preview.src = imageData;
+            preview.style.display = 'block';
+
+        });
+    </script>
+
 </body>
+
 </html>

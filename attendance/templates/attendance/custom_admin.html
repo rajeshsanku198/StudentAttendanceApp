@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Students Attendance Register</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css)" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css)" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary:     #4f46e5;
+            --primary-dark:#3730a3;
+            --sidebar-bg:  #1e1b4b;
+            --sidebar-text:#c7d2fe;
+            --sidebar-active:#4f46e5;
+            --card-shadow: 0 4px 20px rgba(79,70,229,.12);
+        }
+
+        * { font-family: 'Inter', sans-serif; }
+
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        #sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: var(--sidebar-bg);
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1000;
+            transition: width .3s ease;
+            overflow-x: hidden;
+        }
+
+        #sidebar.collapsed { width: 72px; }
+
+        .sidebar-brand {
+            padding: 1.5rem 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .sidebar-brand h5 {
+            color: #fff;
+            font-weight: 700;
+            font-size: .95rem;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar-brand .brand-icon {
+            width: 38px; height: 38px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .nav-label {
+            color: rgba(199,210,254,.45);
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .9rem 1.2rem .3rem;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar-nav .nav-link {
+            color: var(--sidebar-text);
+            padding: .65rem 1.2rem;
+            border-radius: 10px;
+            margin: 2px 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: .875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: background .2s, color .2s;
+        }
+
+        .sidebar-nav .nav-link i {
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            width: 22px;
+            text-align: center;
+        }
+
+        .sidebar-nav .nav-link:hover,
+        .sidebar-nav .nav-link.active {
+            background: var(--sidebar-active);
+            color: #fff;
+        }
+
+        .sidebar-nav .nav-link .badge {
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        /* ── Main Content ── */
+        #main-content {
+            margin-left: 260px;
+            transition: margin-left .3s ease;
+            min-height: 100vh;
+        }
+
+        #main-content.expanded { margin-left: 72px; }
+
+        /* ── Topbar ── */
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: .9rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        /* ── Stat Cards ── */
+        .stat-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.4rem;
+            box-shadow: var(--card-shadow);
+            border: none;
+            transition: transform .2s;
+        }
+
+        .stat-card:hover { transform: translateY(-3px); }
+
+        .stat-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .stat-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-label {
+            font-size: .8rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        /* ── Cards ── */
+        .content-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: none;
+        }
+
+        .content-card .card-header {
+            background: transparent;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 1.1rem 1.4rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* ── Table ── */
+        .table thead th {
+            background: #f8fafc;
+            color: #64748b;
+            font-size: .78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            border: none;
+            padding: .85rem 1rem;
+        }
+
+        .table tbody td {
+            padding: .85rem 1rem;
+            vertical-align: middle;
+            border-color: #f1f5f9;
+            font-size: .875rem;
+            color: #334155;
+        }
+
+        .table tbody tr:hover { background: #fafbff; }
+
+        /* ── Avatar ── */
+        .avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600;
+            font-size: .8rem;
+            flex-shrink: 0;
+        }
+
+        /* ── Status Badge ── */
+        .status-badge {
+            padding: .3rem .75rem;
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        /* ── Progress ── */
+        .progress { height: 6px; border-radius: 10px; }
+
+        /* ── Camera Feed Card ── */
+        .camera-card {
+            background: #0f172a;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .camera-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 50%);
+        }
+
+        .camera-placeholder {
+            color: rgba(255,255,255,.25);
+            font-size: 3.5rem;
+        }
+
+        .camera-status {
+            position: absolute;
+            bottom: 12px; left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: .5; transform: scale(1.3); }
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        /* ── Collapsed sidebar label hide ── */
+        #sidebar.collapsed .nav-text,
+        #sidebar.collapsed .nav-label,
+        #sidebar.collapsed .brand-text,
+        #sidebar.collapsed .badge { display: none !important; }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════ -->
+<nav id="sidebar">
+    <!-- Brand -->
+    <div class="sidebar-brand d-flex align-items-center gap-3">
+        <div class="brand-icon">
+            <i class="bi bi-person-bounding-box text-white fs-5"></i>
+        </div>
+        <div class="brand-text">
+            <h5 class="mb-0">AttendFace</h5>
+            <small style="color:#818cf8;font-size:.7rem;">Admin Portal</small>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <ul class="sidebar-nav nav flex-column mt-2">
+
+        <li class="nav-label">Main</li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link active">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span class="nav-text">Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-camera-video-fill"></i>
+                <span class="nav-text">Live Detection</span>
+                <span class="badge bg-success nav-text">LIVE</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-journal-check"></i>
+                <span class="nav-text">Attendance Log</span>
+            </a>
+        </li>
+
+        <li class="nav-label">Management</li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-people-fill"></i>
+                <span class="nav-text">Students</span>
+                <span class="badge bg-primary nav-text">248</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-building"></i>
+                <span class="nav-text">Classes / Courses</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-person-badge-fill"></i>
+                <span class="nav-text">Teachers</span>
+            </a>
+        </li>
+
+        <li class="nav-label">Reports</li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-bar-chart-fill"></i>
+                <span class="nav-text">Analytics</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-file-earmark-spreadsheet"></i>
+                <span class="nav-text">Export Reports</span>
+            </a>
+        </li>
+
+        <li class="nav-label">System</li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-gear-fill"></i>
+                <span class="nav-text">Settings</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-box-arrow-left"></i>
+                <span class="nav-text">Logout</span>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+
+<!-- ════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════ -->
+<div id="main-content">
+
+    <!-- Topbar -->
+    <div class="topbar d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-sm btn-light" id="toggleSidebar">
+                <i class="bi bi-list fs-5"></i>
+            </button>
+            <div>
+                <h6 class="mb-0 fw-600" style="color:#1e293b;font-weight:600;">Dashboard</h6>
+                <small class="text-muted">Tuesday, 3 June 2026</small>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <!-- Search -->
+            <div class="input-group input-group-sm" style="width:220px;">
+                <span class="input-group-text bg-light border-0">
+                    <i class="bi bi-search text-muted"></i>
+                </span>
+                <input type="text" class="form-control bg-light border-0" placeholder="Search student…">
+            </div>
+
+            <!-- Notifications -->
+            <button class="btn btn-light btn-sm position-relative">
+                <i class="bi bi-bell fs-5"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:.6rem;">4</span>
+            </button>
+
+            <!-- Admin Avatar -->
+            <div class="d-flex align-items-center gap-2" style="cursor:pointer;">
+                <div class="avatar" style="background:#ede9fe;color:#4f46e5;">AD</div>
+                <div class="d-none d-md-block">
+                    <div style="font-size:.82rem;font-weight:600;color:#1e293b;">Admin</div>
+                    <div style="font-size:.72rem;color:#64748b;">Super Admin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Body -->
+    <div class="p-4">
+
+        <!-- ── Stat Cards ── -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                        <div class="stat-icon" style="background:#ede9fe;">
+                            <i class="bi bi-people-fill" style="color:#4f46e5;"></i>
+                        </div>
+                        <span class="stat-change text-success"><i class="bi bi-arrow-up-short"></i>3.2%</span>
+                    </div>
+                    <div class="stat-value">248</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                        <div class="stat-icon" style="background:#dcfce7;">
+                            <i class="bi bi-person-check-fill" style="color:#16a34a;"></i>
+                        </div>
+                        <span class="stat-change text-success"><i class="bi bi-arrow-up-short"></i>1.8%</span>
+                    </div>
+                    <div class="stat-value">201</div>
+                    <div class="stat-label">Present Today</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                        <div class="stat-icon" style="background:#fee2e2;">
+                            <i class="bi bi-person-x-fill" style="color:#dc2626;"></i>
+                        </div>
+                        <span class="stat-change text-danger"><i class="bi bi-arrow-up-short"></i>0.5%</span>
+                    </div>
+                    <div class="stat-value">47</div>
+                    <div class="stat-label">Absent Today</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                        <div class="stat-icon" style="background:#fef9c3;">
+                            <i class="bi bi-percent" style="color:#ca8a04;"></i>
+                        </div>
+                        <span class="stat-change text-success"><i class="bi bi-arrow-up-short"></i>0.9%</span>
+                    </div>
+                    <div class="stat-value">81%</div>
+                    <div class="stat-label">Attendance Rate</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Middle Row: Camera + Recent Log ── -->
+        <div class="row g-3 mb-4">
+
+            <!-- Live Camera Feed -->
+            <div class="col-lg-5">
+                <div class="content-card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <span><i class="bi bi-camera-video-fill me-2" style="color:#4f46e5;"></i>Live Face Detection</span>
+                        <button class="btn btn-sm btn-primary px-3">
+                            <i class="bi bi-play-fill me-1"></i>Start
+                        </button>
+                    </div>
+                    <div class="p-3">
+                        <div class="camera-card mb-3">
+                            <i class="bi bi-camera-video-off camera-placeholder"></i>
+                            <div class="camera-overlay"></div>
+                            <div class="camera-status">
+                                <div class="pulse-dot"></div>
+                                Camera Ready
+                            </div>
+                        </div>
+
+                        <!-- Detection Info -->
+                        <div class="row g-2">
+                            <div class="col-4 text-center p-2" style="background:#f8fafc;border-radius:10px;">
+                                <div style="font-size:1.2rem;font-weight:700;color:#4f46e5;">0</div>
+                                <div style="font-size:.7rem;color:#64748b;">Faces Detected</div>
+                            </div>
+                            <div class="col-4 text-center p-2" style="background:#f8fafc;border-radius:10px;">
+                                <div style="font-size:1.2rem;font-weight:700;color:#16a34a;">0</div>
+                                <div style="font-size:.7rem;color:#64748b;">Recognized</div>
+                            </div>
+                            <div class="col-4 text-center p-2" style="background:#f8fafc;border-radius:10px;">
+                                <div style="font-size:1.2rem;font-weight:700;color:#dc2626;">0</div>
+                                <div style="font-size:.7rem;color:#64748b;">Unknown</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Attendance -->
+            <div class="col-lg-7">
+                <div class="content-card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <span><i class="bi bi-clock-history me-2" style="color:#4f46e5;"></i>Recent Attendance</span>
+                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>ID</th>
+                                    <th>Time</th>
+                                    <th>Class</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="avatar" style="background:#ede9fe;color:#4f46e5;">AM</div>
+                                            <span>Amir Malik</span>
+                                        </div>
+                                    </td>
+                                    <td><code>STU-001</code></td>
+                                    <td>08:02 AM</td>
+                                    <td>CS-301</td>
+                                    <td><span class="status-badge" style="background:#dcfce7;color:#16a34a;">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="avatar" style="background:#fce7f3;color:#db2777;">SR</div>
+                                            <span>Sara Rauf</span>
+                                        </div>
+                                    </td>
+                                    <td><code>STU-002</code></td>
+                                    <td>08:05 AM</td>
+                                    <td>CS-301</td>
+                                    <td><span class="status-badge" style="background:#dcfce7;color:#16a34a;">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="avatar" style="background:#fee2e2;color:#dc2626;">ZK</div>
+                                            <span>Zain Khan</span>
+                                        </div>
+                                    </td>
+                                    <td><code>STU-003</code></td>
+                                    <td>—</td>
+                                    <td>CS-301</td>
+                                    <td><span class="status-badge" style="background:#fee2e2;color:#dc2626;">Absent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="avatar" style="background:#fef9c3;color:#ca8a04;">NA</div>
+                                            <span>Nadia Ashraf</span>
+                                        </div>
+                                    </td>
+                                    <td><code>STU-004</code></td>
+                                    <td>08:18 AM</td>
+                                    <td>CS-302</td>
+                                    <td><span class="status-badge" style="background:#fef9c3;color:#ca8a04;">Late</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="avatar" style="background:#dbeafe;color:#2563eb;">FH</div>
+                                            <span>Fahad Hassan</span>
+                                        </div>
+                                    </td>
+                                    <td><code>STU-005</code></td>
+                                    <td>08:03 AM</td>
+                                    <td>CS-302</td>
+                                    <td><span class="status-badge" style="background:#dcfce7;color:#16a34a;">Present</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Bottom Row: Class Overview + Quick Actions ── -->
+        <div class="row g-3">
+
+            <!-- Class Attendance Overview -->
+            <div class="col-lg-7">
+                <div class="content-card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <span><i class="bi bi-building me-2" style="color:#4f46e5;"></i>Class Attendance Overview</span>
+                        <select class="form-select form-select-sm" style="width:auto;">
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                        </select>
+                    </div>
+                    <div class="p-3">
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span style="font-size:.85rem;font-weight:500;color:#334155;">CS-301 · Algorithms</span>
+                                <span style="font-size:.82rem;color:#64748b;font-weight:600;">92%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width:92%;background:#4f46e5;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span style="font-size:.85rem;font-weight:500;color:#334155;">CS-302 · Database Systems</span>
+                                <span style="font-size:.82rem;color:#64748b;font-weight:600;">78%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width:78%;background:#06b6d4;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span style="font-size:.85rem;font-weight:500;color:#334155;">CS-303 · Computer Networks</span>
+                                <span style="font-size:.82rem;color:#64748b;font-weight:600;">85%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width:85%;background:#8b5cf6;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span style="font-size:.85rem;font-weight:500;color:#334155;">CS-304 · Operating Systems</span>
+                                <span style="font-size:.82rem;color:#64748b;font-weight:600;">61%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width:61%;background:#f59e0b;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-0">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span style="font-size:.85rem;font-weight:500;color:#334155;">CS-305 · Software Engineering</span>
+                                <span style="font-size:.82rem;color:#64748b;font-weight:600;">88%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width:88%;background:#22c55e;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions + System Info -->
+            <div class="col-lg-5">
+
+                <!-- Quick Actions -->
+                <div class="content-card mb-3">
+                    <div class="card-header">
+                        <i class="bi bi-lightning-fill me-2" style="color:#4f46e5;"></i>Quick Actions
+                    </div>
+                    <div class="p-3 d-grid gap-2">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-camera-fill me-2"></i>Start Face Detection Session
+                        </button>
+                        <button class="btn btn-outline-success">
+                            <i class="bi bi-person-plus-fill me-2"></i>Register New Student
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="bi bi-download me-2"></i>Export Today's Report
+                        </button>
+                        <button class="btn btn-outline-warning">
+                            <i class="bi bi-envelope-fill me-2"></i>Send Absence Alerts
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="bi bi-activity me-2" style="color:#4f46e5;"></i>System Status
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid #f1f5f9;">
+                            <span style="font-size:.83rem;color:#334155;">Face Recognition Model</span>
+                            <span class="status-badge" style="background:#dcfce7;color:#16a34a;">Active</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid #f1f5f9;">
+                            <span style="font-size:.83rem;color:#334155;">Camera Feed</span>
+                            <span class="status-badge" style="background:#fef9c3;color:#ca8a04;">Standby</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid #f1f5f9;">
+                            <span style="font-size:.83rem;color:#334155;">Database Connection</span>
+                            <span class="status-badge" style="background:#dcfce7;color:#16a34a;">Connected</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <span style="font-size:.83rem;color:#334155;">Last Sync</span>
+                            <span style="font-size:.8rem;color:#64748b;">2 min ago</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Bottom Row -->
+
+    </div>
+    <!-- /Page Body -->
+
+</div>
+<!-- /Main Content -->
+
+<!-- Bootstrap JS -->
+<script src="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js)"></script>
+
+<script>
+    // Sidebar toggle
+    const sidebar      = document.getElementById('sidebar');
+    const mainContent  = document.getElementById('main-content');
+    const toggleBtn    = document.getElementById('toggleSidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+    });
+</script>
+
+</body>
+</html>

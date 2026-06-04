@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daily Attendance</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #eef4f7;
+            color: #17212b;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 36px 0;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        a {
+            color: #126a66;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin: 12px 0 8px;
+            font-size: 34px;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            font-size: 22px;
+        }
+
+        p {
+            margin: 0;
+            color: #52616f;
+            line-height: 1.6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(280px, 360px) 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid #d5e0e7;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 10px 26px rgba(23, 33, 43, 0.07);
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        input,
+        select {
+            width: 100%;
+            border: 1px solid #c4d1da;
+            border-radius: 6px;
+            padding: 11px 12px;
+            font: inherit;
+            color: #17212b;
+            background: #fbfdfe;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #126a66;
+            outline: 3px solid rgba(18, 106, 102, 0.18);
+        }
+
+        button,
+        .button {
+            display: inline-block;
+            border: 0;
+            border-radius: 6px;
+            background: #126a66;
+            color: #ffffff;
+            padding: 12px 18px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        button:hover,
+        .button:hover {
+            background: #0d5652;
+        }
+
+        .button.secondary {
+            background: #e8eef2;
+            color: #17212b;
+        }
+
+        .button.secondary:hover {
+            background: #d5e0e7;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .stat {
+            border: 1px solid #d5e0e7;
+            border-radius: 8px;
+            padding: 16px;
+            background: #fbfdfe;
+        }
+
+        .stat span {
+            display: block;
+            margin-bottom: 6px;
+            color: #52616f;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .stat strong {
+            font-size: 28px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #d5e0e7;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f3f7f9;
+            color: #52616f;
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            min-width: 72px;
+            border-radius: 999px;
+            padding: 5px 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .badge.present {
+            background: #dff4e9;
+            color: #14532d;
+        }
+
+        .badge.absent {
+            background: #fee4e2;
+            color: #912018;
+        }
+
+        .messages {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .messages li {
+            padding: 12px 14px;
+            border-radius: 6px;
+            background: #dff4e9;
+            color: #14532d;
+            border: 1px solid #a8dfc3;
+        }
+
+        .empty {
+            padding: 30px;
+            text-align: center;
+            color: #52616f;
+        }
+
+        .error {
+            margin: 8px 0 0;
+            color: #b42318;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .layout,
+            .filter-grid,
+            .summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <a href="{% url 'attendance:home' %}">Back to home</a>
+            <h1>Daily Attendance</h1>
+            <p>Mark students present or absent and review attendance by student ID, month, or custom dates.</p>
+        </header>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="layout">
+            <section class="panel">
+                <h2>Mark Attendance</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in record_form %}
+                        <div class="field">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <p class="error">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit">Save Attendance</button>
+                </form>
+            </section>
+
+            <section class="panel">
+                <h2>Attendance Details</h2>
+                <form method="get">
+                    <div class="filter-grid">
+                        {% for field in filter_form %}
+                            <div class="field">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% for error in field.errors %}
+                                    <p class="error">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Apply Filters</button>
+                        <a class="button secondary" href="{% url 'attendance:attendance_daily' %}">Clear</a>
+                    </div>
+                </form>
+
+                <div class="summary">
+                    <div class="stat">
+                        <span>Total Records</span>
+                        <strong>{{ total_count }}</strong>
+                    </div>
+                    <div class="stat">
+                        <span>Present</span>
+                        <strong>{{ present_count }}</strong>
+                    </div>
+                    <div class="stat">
+                        <span>Absent</span>
+                        <strong>{{ absent_count }}</strong>
+                    </div>
+                </div>
+
+                {% if records %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Status</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records %}
+                                <tr>
+                                    <td>{{ record.date }}</td>
+                                    <td>{{ record.student.student_id }}</td>
+                                    <td>{{ record.student.first_name }} {{ record.student.last_name }}</td>
+                                    <td>{{ record.student.class_name }}</td>
+                                    <td>
+                                        <span class="badge {{ record.status }}">{{ record.get_status_display }}</span>
+                                    </td>
+                                    <td>{{ record.note|default:'-' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="empty">No attendance records found.</div>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</body>
+</html>
