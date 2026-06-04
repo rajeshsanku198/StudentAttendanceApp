@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register Student</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #eef4f7;
+            color: #17212b;
+        }
+
+        .page {
+            width: min(960px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        a {
+            color: #126a66;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin: 12px 0 8px;
+            font-size: 34px;
+        }
+
+        p {
+            margin: 0;
+            color: #52616f;
+            line-height: 1.6;
+        }
+
+        form {
+            background: #ffffff;
+            border: 1px solid #d5e0e7;
+            border-radius: 8px;
+            padding: 28px;
+            box-shadow: 0 12px 30px rgba(23, 33, 43, 0.08);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #c4d1da;
+            border-radius: 6px;
+            padding: 12px;
+            font: inherit;
+            color: #17212b;
+            background: #fbfdfe;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #126a66;
+            outline: 3px solid rgba(18, 106, 102, 0.18);
+        }
+
+        .error {
+            margin: 8px 0 0;
+            color: #b42318;
+            font-size: 14px;
+        }
+
+        .messages {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .messages li {
+            padding: 12px 14px;
+            border-radius: 6px;
+            background: #dff4e9;
+            color: #14532d;
+            border: 1px solid #a8dfc3;
+        }
+
+        button {
+            margin-top: 24px;
+            border: 0;
+            border-radius: 6px;
+            background: #126a66;
+            color: #ffffff;
+            padding: 13px 20px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d5652;
+        }
+
+        @media (max-width: 720px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <a href="{% url 'attendance:home' %}">Back to home</a>
+            <h1>Register Student</h1>
+            <p>Add a student profile for attendance tracking and future face detection enrollment.</p>
+        </header>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="error">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="grid">
+                {% for field in form %}
+                    <div class="field{% if field.name == 'address' or field.name == 'face_image' %} full{% endif %}">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Save Student</button>
+        </form>
+    </div>
+</body>
+</html>
