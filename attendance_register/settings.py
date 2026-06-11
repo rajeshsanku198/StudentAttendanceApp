@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-uagf-7h1_4xa$1ixyqj$k7_e78c1nl0f=(i=xpfre#n5z62%f7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://studentattendanceregister.onrender.com/']
 
 
 # Application definition
