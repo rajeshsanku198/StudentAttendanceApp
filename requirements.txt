@@ -6,3 +6,5 @@ tzdata==2026.2
 gunicorn==20.1.0
 opencv-contrib-python>=4.8,<4.14
 numpy>=1.24,<2.5
+whitenoise
+pip freeze > requirements.txt
