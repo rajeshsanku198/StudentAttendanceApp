@@ -32,6 +32,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -46,6 +62,62 @@
         "importPath": "django.db.models.deletion",
         "description": "django.db.models.deletion",
         "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "template",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
         "documentation": {}
     },
     {
@@ -73,6 +145,30 @@
         "documentation": {}
     },
     {
+        "label": "UserAdmin",
+        "importPath": "django.contrib.auth.admin",
+        "description": "django.contrib.auth.admin",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.admin",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "django.contrib.auth.models",
+        "description": "django.contrib.auth.models",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "django.contrib.auth.models",
+        "description": "django.contrib.auth.models",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.models",
+        "documentation": {}
+    },
+    {
         "label": "AppConfig",
         "importPath": "django.apps",
         "description": "django.apps",
@@ -81,11 +177,30 @@
         "documentation": {}
     },
     {
-        "label": "forms",
-        "importPath": "django",
-        "description": "django",
+        "label": "os",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "django",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
         "documentation": {}
     },
     {
@@ -94,6 +209,14 @@
         "description": "django.utils",
         "isExtraImport": true,
         "detail": "django.utils",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -129,6 +252,89 @@
         "documentation": {}
     },
     {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "authenticate",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "ContentFile",
+        "importPath": "django.core.files.base",
+        "description": "django.core.files.base",
+        "isExtraImport": true,
+        "detail": "django.core.files.base",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
         "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -145,15 +351,6 @@
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
         "label": "get_asgi_application",
         "importPath": "django.core.asgi",
         "description": "django.core.asgi",
@@ -167,14 +364,6 @@
         "description": "pathlib",
         "isExtraImport": true,
         "detail": "pathlib",
-        "documentation": {}
-    },
-    {
-        "label": "settings",
-        "importPath": "django.conf",
-        "description": "django.conf",
-        "isExtraImport": true,
-        "detail": "django.conf",
         "documentation": {}
     },
     {
@@ -221,6 +410,33 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "attendance.migrations.0003_teacher",
+        "description": "attendance.migrations.0003_teacher",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('attendance', '0002_attendancerecord'),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Teacher',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),",
+        "detail": "attendance.migrations.0003_teacher",
+        "documentation": {}
+    },
+    {
+        "label": "sum_attr",
+        "kind": 2,
+        "importPath": "attendance.templatetags.attendance_extras",
+        "description": "attendance.templatetags.attendance_extras",
+        "peekOfCode": "def sum_attr(queryset, attr):\n    return sum(getattr(item, attr, 0) for item in queryset)",
+        "detail": "attendance.templatetags.attendance_extras",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 5,
+        "importPath": "attendance.templatetags.attendance_extras",
+        "description": "attendance.templatetags.attendance_extras",
+        "peekOfCode": "register = template.Library()\n@register.filter\ndef sum_attr(queryset, attr):\n    return sum(getattr(item, attr, 0) for item in queryset)",
+        "detail": "attendance.templatetags.attendance_extras",
+        "documentation": {}
+    },
+    {
         "label": "StudentAdmin",
         "kind": 6,
         "importPath": "attendance.admin",
@@ -234,7 +450,34 @@
         "kind": 6,
         "importPath": "attendance.admin",
         "description": "attendance.admin",
-        "peekOfCode": "class AttendanceRecordAdmin(admin.ModelAdmin):\n    list_display = ('student', 'date', 'status', 'note')\n    list_filter = ('status', 'date')\n    search_fields = ('student__student_id', 'student__first_name', 'student__last_name')\n    date_hierarchy = 'date'",
+        "peekOfCode": "class AttendanceRecordAdmin(admin.ModelAdmin):\n    list_display = ('student', 'date', 'status', 'note')\n    list_filter = ('status', 'date')\n    search_fields = ('student__student_id', 'student__first_name', 'student__last_name')\n    date_hierarchy = 'date'\n@admin.register(Teacher)\nclass TeacherAdmin(admin.ModelAdmin):\n    list_display = ('user', 'assigned_classes', 'phone')\n    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'assigned_classes')\nclass TeacherInline(admin.StackedInline):",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "TeacherAdmin",
+        "kind": 6,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "class TeacherAdmin(admin.ModelAdmin):\n    list_display = ('user', 'assigned_classes', 'phone')\n    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'assigned_classes')\nclass TeacherInline(admin.StackedInline):\n    model = Teacher\n    can_delete = False\n    verbose_name_plural = 'Teacher Profile'\nclass CustomUserAdmin(BaseUserAdmin):\n    inlines = (TeacherInline,)\nadmin.site.unregister(User)",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "TeacherInline",
+        "kind": 6,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "class TeacherInline(admin.StackedInline):\n    model = Teacher\n    can_delete = False\n    verbose_name_plural = 'Teacher Profile'\nclass CustomUserAdmin(BaseUserAdmin):\n    inlines = (TeacherInline,)\nadmin.site.unregister(User)\nadmin.site.register(User, CustomUserAdmin)",
+        "detail": "attendance.admin",
+        "documentation": {}
+    },
+    {
+        "label": "CustomUserAdmin",
+        "kind": 6,
+        "importPath": "attendance.admin",
+        "description": "attendance.admin",
+        "peekOfCode": "class CustomUserAdmin(BaseUserAdmin):\n    inlines = (TeacherInline,)\nadmin.site.unregister(User)\nadmin.site.register(User, CustomUserAdmin)",
         "detail": "attendance.admin",
         "documentation": {}
     },
@@ -272,6 +515,51 @@
         "description": "attendance.apps",
         "peekOfCode": "class AttendanceConfig(AppConfig):\n    name = 'attendance'",
         "detail": "attendance.apps",
+        "documentation": {}
+    },
+    {
+        "label": "detect_face",
+        "kind": 2,
+        "importPath": "attendance.face_utils",
+        "description": "attendance.face_utils",
+        "peekOfCode": "def detect_face(image):\n    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))\n    return faces, gray\ndef load_students():\n    from .models import Student\n    students = Student.objects.exclude(face_image='')\n    faces = []\n    labels = []\n    label_map = {}",
+        "detail": "attendance.face_utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_students",
+        "kind": 2,
+        "importPath": "attendance.face_utils",
+        "description": "attendance.face_utils",
+        "peekOfCode": "def load_students():\n    from .models import Student\n    students = Student.objects.exclude(face_image='')\n    faces = []\n    labels = []\n    label_map = {}\n    for idx, student in enumerate(students):\n        if not student.face_image:\n            continue\n        path = os.path.join(settings.MEDIA_ROOT, student.face_image.name)",
+        "detail": "attendance.face_utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_face_roi_from_image",
+        "kind": 2,
+        "importPath": "attendance.face_utils",
+        "description": "attendance.face_utils",
+        "peekOfCode": "def get_face_roi_from_image(image):\n    faces_detected, gray = detect_face(image)\n    if len(faces_detected) == 0:\n        return None, gray\n    (x, y, w, h) = faces_detected[0]\n    face_roi = gray[y:y + h, x:x + w]\n    face_roi = cv2.resize(face_roi, (200, 200))\n    return face_roi, gray",
+        "detail": "attendance.face_utils",
+        "documentation": {}
+    },
+    {
+        "label": "HAAR_CASCADE_PATH",
+        "kind": 5,
+        "importPath": "attendance.face_utils",
+        "description": "attendance.face_utils",
+        "peekOfCode": "HAAR_CASCADE_PATH = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'\nface_cascade = cv2.CascadeClassifier(HAAR_CASCADE_PATH)\ndef detect_face(image):\n    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))\n    return faces, gray\ndef load_students():\n    from .models import Student\n    students = Student.objects.exclude(face_image='')\n    faces = []",
+        "detail": "attendance.face_utils",
+        "documentation": {}
+    },
+    {
+        "label": "face_cascade",
+        "kind": 5,
+        "importPath": "attendance.face_utils",
+        "description": "attendance.face_utils",
+        "peekOfCode": "face_cascade = cv2.CascadeClassifier(HAAR_CASCADE_PATH)\ndef detect_face(image):\n    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))\n    return faces, gray\ndef load_students():\n    from .models import Student\n    students = Student.objects.exclude(face_image='')\n    faces = []\n    labels = []",
+        "detail": "attendance.face_utils",
         "documentation": {}
     },
     {
@@ -320,11 +608,38 @@
         "documentation": {}
     },
     {
+        "label": "Teacher",
+        "kind": 6,
+        "importPath": "attendance.models",
+        "description": "attendance.models",
+        "peekOfCode": "class Teacher(models.Model):\n    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='teacher_profile')\n    assigned_classes = models.CharField(max_length=500, help_text='Comma-separated class names, e.g. CS-301,CS-302')\n    phone = models.CharField(max_length=20, blank=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    class Meta:\n        ordering = ['user__username']\n    def __str__(self):\n        return f'{self.user.get_full_name()} ({self.user.username})'\n    def get_class_list(self):",
+        "detail": "attendance.models",
+        "documentation": {}
+    },
+    {
+        "label": "train_recognizer",
+        "kind": 2,
+        "importPath": "attendance.recognize",
+        "description": "attendance.recognize",
+        "peekOfCode": "def train_recognizer():\n    faces, labels, label_map = load_students()\n    if len(faces) == 0:\n        return None, label_map\n    recognizer = cv2.face.LBPHFaceRecognizer_create()\n    recognizer.train(faces, np.array(labels))\n    return recognizer, label_map\ndef recognize_and_mark_attendance(captured_image_path, class_name):\n    from .models import Student, AttendanceRecord\n    img = cv2.imread(captured_image_path)",
+        "detail": "attendance.recognize",
+        "documentation": {}
+    },
+    {
+        "label": "recognize_and_mark_attendance",
+        "kind": 2,
+        "importPath": "attendance.recognize",
+        "description": "attendance.recognize",
+        "peekOfCode": "def recognize_and_mark_attendance(captured_image_path, class_name):\n    from .models import Student, AttendanceRecord\n    img = cv2.imread(captured_image_path)\n    if img is None:\n        return {'error': 'Could not read captured image'}\n    face_roi, gray = get_face_roi_from_image(img)\n    if face_roi is None:\n        return {'error': 'No face detected in the captured image'}\n    recognizer, label_map = train_recognizer()\n    if recognizer is None:",
+        "detail": "attendance.recognize",
+        "documentation": {}
+    },
+    {
         "label": "app_name",
         "kind": 5,
         "importPath": "attendance.urls",
         "description": "attendance.urls",
-        "peekOfCode": "app_name = 'attendance'\nurlpatterns = [\n    path('', views.home, name='home'),\n    path('students/register/', views.register_student, name='register_student'),\n    path('attendance/daily/', views.attendance_daily, name='attendance_daily'),\n]",
+        "peekOfCode": "app_name = 'attendance'\nurlpatterns = [\n    path('', views.home, name='home'),\n    path('login/', views.login_view, name='login'),\n    path('logout/', views.logout_view, name='logout'),\n    path('dashboard/', views.teacher_dashboard, name='teacher_dashboard'),\n    path('attendance/take/<str:class_name>/', views.take_attendance, name='take_attendance'),\n    path('attendance/process/', views.process_attendance, name='process_attendance'),\n    path('students/register/', views.register_student, name='register_student'),\n    path('attendance/daily/', views.attendance_daily, name='attendance_daily'),",
         "detail": "attendance.urls",
         "documentation": {}
     },
@@ -333,7 +648,7 @@
         "kind": 5,
         "importPath": "attendance.urls",
         "description": "attendance.urls",
-        "peekOfCode": "urlpatterns = [\n    path('', views.home, name='home'),\n    path('students/register/', views.register_student, name='register_student'),\n    path('attendance/daily/', views.attendance_daily, name='attendance_daily'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('', views.home, name='home'),\n    path('login/', views.login_view, name='login'),\n    path('logout/', views.logout_view, name='logout'),\n    path('dashboard/', views.teacher_dashboard, name='teacher_dashboard'),\n    path('attendance/take/<str:class_name>/', views.take_attendance, name='take_attendance'),\n    path('attendance/process/', views.process_attendance, name='process_attendance'),\n    path('students/register/', views.register_student, name='register_student'),\n    path('attendance/daily/', views.attendance_daily, name='attendance_daily'),\n]",
         "detail": "attendance.urls",
         "documentation": {}
     },
@@ -342,7 +657,52 @@
         "kind": 2,
         "importPath": "attendance.views",
         "description": "attendance.views",
-        "peekOfCode": "def home(request):\n    return render(request, 'attendance/home.html')\ndef custom_admin(request):\n    return render(request, 'attendance/custom_admin.html')\ndef register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')",
+        "peekOfCode": "def home(request):\n    return render(request, 'attendance/home.html')\ndef login_view(request):\n    if request.user.is_authenticated:\n        return redirect('attendance:teacher_dashboard')\n    if request.method == 'POST':\n        username = request.POST['username']\n        password = request.POST['password']\n        user = authenticate(request, username=username, password=password)\n        if user is not None:",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "login_view",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def login_view(request):\n    if request.user.is_authenticated:\n        return redirect('attendance:teacher_dashboard')\n    if request.method == 'POST':\n        username = request.POST['username']\n        password = request.POST['password']\n        user = authenticate(request, username=username, password=password)\n        if user is not None:\n            login(request, user)\n            next_url = request.GET.get('next', 'attendance:teacher_dashboard')",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "logout_view",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def logout_view(request):\n    logout(request)\n    return redirect('attendance:home')\n@login_required(login_url='attendance:login')\ndef teacher_dashboard(request):\n    try:\n        teacher = Teacher.objects.get(user=request.user)\n    except Teacher.DoesNotExist:\n        messages.error(request, 'No teacher profile found for this account.')\n        return redirect('attendance:home')",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "teacher_dashboard",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def teacher_dashboard(request):\n    try:\n        teacher = Teacher.objects.get(user=request.user)\n    except Teacher.DoesNotExist:\n        messages.error(request, 'No teacher profile found for this account.')\n        return redirect('attendance:home')\n    classes = teacher.get_class_list()\n    class_data = []\n    today = __import__('datetime').date.today()\n    for cls in classes:",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "take_attendance",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def take_attendance(request, class_name):\n    try:\n        teacher = Teacher.objects.get(user=request.user)\n    except Teacher.DoesNotExist:\n        messages.error(request, 'No teacher profile found.')\n        return redirect('attendance:home')\n    if class_name not in teacher.get_class_list():\n        messages.error(request, f'You are not assigned to class \"{class_name}\".')\n        return redirect('attendance:teacher_dashboard')\n    students = Student.objects.filter(class_name=class_name)",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "process_attendance",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def process_attendance(request):\n    if request.method != 'POST':\n        return JsonResponse({'error': 'POST required'}, status=405)\n    class_name = request.POST.get('class_name')\n    if request.POST.get('mark_remaining_absent'):\n        student_ids_str = request.POST.get('student_ids', '')\n        date_str = request.POST.get('date', '')\n        if not student_ids_str or not date_str:\n            return JsonResponse({'error': 'Missing student_ids or date'})\n        from datetime import datetime",
         "detail": "attendance.views",
         "documentation": {}
     },
@@ -351,7 +711,7 @@
         "kind": 2,
         "importPath": "attendance.views",
         "description": "attendance.views",
-        "peekOfCode": "def custom_admin(request):\n    return render(request, 'attendance/custom_admin.html')\ndef register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')\n            return redirect('attendance:register_student')\n    else:",
+        "peekOfCode": "def custom_admin(request):\n    return render(request, 'attendance/custom_admin.html')\ndef register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save(commit=False)\n            captured_image = request.POST.get('captured_image')\n            if captured_image:\n                try:",
         "detail": "attendance.views",
         "documentation": {}
     },
@@ -360,7 +720,16 @@
         "kind": 2,
         "importPath": "attendance.views",
         "description": "attendance.views",
-        "peekOfCode": "def register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save()\n            messages.success(request, f'{student.first_name} {student.last_name} registered successfully.')\n            return redirect('attendance:register_student')\n    else:\n        form = StudentRegistrationForm()\n    return render(request, 'attendance/register_student.html', {'form': form})",
+        "peekOfCode": "def register_student(request):\n    if request.method == 'POST':\n        form = StudentRegistrationForm(request.POST, request.FILES)\n        if form.is_valid():\n            student = form.save(commit=False)\n            captured_image = request.POST.get('captured_image')\n            if captured_image:\n                try:\n                    format, imgstr = captured_image.split(';base64,')\n                    ext = format.split('/')[-1]",
+        "detail": "attendance.views",
+        "documentation": {}
+    },
+    {
+        "label": "start_attendance",
+        "kind": 2,
+        "importPath": "attendance.views",
+        "description": "attendance.views",
+        "peekOfCode": "def start_attendance(request):\n    from .recognize import recognize_and_mark_attendance\n    recognize_and_mark_attendance()\n    return HttpResponse(\"Attendance Recognition Completed\")\ndef attendance_daily(request):\n    if request.method == 'POST':\n        record_form = AttendanceRecordForm(request.POST)\n        if record_form.is_valid():\n            record, created = AttendanceRecord.objects.update_or_create(\n                student=record_form.cleaned_data['student'],",
         "detail": "attendance.views",
         "documentation": {}
     },

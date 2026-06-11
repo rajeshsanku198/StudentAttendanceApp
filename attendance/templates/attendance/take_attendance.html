@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Take Attendance - {{ class_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #0f172a; min-height: 100vh; color: #fff; }
+        .camera-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .camera-frame {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .camera-frame video, .camera-frame canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .camera-frame canvas { display: none; }
+        .overlay-text {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: .8rem;
+        }
+        .pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+            margin-right: 6px;
+        }
+        @keyframes pulse {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.3); }
+        }
+        .btn-action {
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-weight: 600;
+        }
+        .result-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .student-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 6px;
+        }
+        .student-item.present { border-left: 4px solid #22c55e; }
+        .student-item.absent { border-left: 4px solid #ef4444; }
+        .spinner-border-sm { width: 1rem; height: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <a href="{% url 'attendance:teacher_dashboard' %}" class="text-light text-decoration-none opacity-75">← Dashboard</a>
+                <h3 class="mt-2">📷 Taking Attendance: <strong>{{ class_name }}</strong></h3>
+                <p class="text-light opacity-75 mb-0">{{ today }}</p>
+            </div>
+            <div>
+                <span class="badge bg-info fs-6">{{ students|length }} Students</span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="camera-container">
+                    <div class="camera-frame mb-3" id="cameraFrame">
+                        <video id="video" autoplay playsinline></video>
+                        <canvas id="canvas"></canvas>
+                        <div class="overlay-text">
+                            <span class="pulse-dot"></span>
+                            <span id="cameraStatus">Initializing camera...</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button class="btn btn-light btn-action" id="startCameraBtn" onclick="startCamera()">
+                            📷 Start Camera
+                        </button>
+                        <button class="btn btn-success btn-action" id="captureBtn" onclick="captureAndRecognize()" disabled>
+                            📸 Capture & Recognize
+                        </button>
+                    </div>
+
+                    <div id="statusMessage" class="mt-3"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="result-card" style="max-height: 500px; overflow-y: auto;">
+                    <h5 class="mb-3">📋 Attendance Status</h5>
+                    <div id="studentList">
+                        {% for student in students %}
+                            <div class="student-item absent" id="student-{{ student.id }}">
+                                <div>
+                                    <strong>{{ student.first_name }} {{ student.last_name }}</strong>
+                                    <small class="d-block text-light opacity-50">{{ student.student_id }}</small>
+                                </div>
+                                <span class="badge bg-secondary" id="status-{{ student.id }}">Absent</span>
+                            </div>
+                        {% empty %}
+                            <p class="text-light opacity-50">No students in this class.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-action w-100 mt-3" onclick="markRemainingAbsent()">
+                    ✅ Finalize & Mark Remaining Absent
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stream = null;
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+        let captureBtn = document.getElementById('captureBtn');
+        let cameraStatus = document.getElementById('cameraStatus');
+        let processing = false;
+
+        async function startCamera() {
+            if (!navigator.mediaDevices) {
+                showStatus('Camera API not available', 'danger');
+                return;
+            }
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
+                video.srcObject = stream;
+                video.style.display = 'block';
+                canvas.style.display = 'none';
+                captureBtn.disabled = false;
+                cameraStatus.textContent = 'Camera ready';
+                showStatus('Camera started. Point at a student\'s face and click "Capture & Recognize"', 'success');
+            } catch (err) {
+                showStatus('Camera error: ' + err.message, 'danger');
+            }
+        }
+
+        function captureAndRecognize() {
+            if (processing) return;
+            processing = true;
+            captureBtn.disabled = true;
+            showStatus('Processing...', 'info');
+
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            let ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            let imageData = canvas.toDataURL('image/jpeg');
+            canvas.style.display = 'block';
+
+            fetch('{% url "attendance:process_attendance" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: new URLSearchParams({
+                    'class_name': '{{ class_name }}',
+                    'captured_image': imageData
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    let sid = data.student_id;
+                    let studentDiv = document.querySelector(`.student-item:has(strong:contains("${data.student_name}"))`);
+                    document.querySelectorAll('.student-item').forEach(el => {
+                        if (el.querySelector('strong')?.textContent.trim() === data.student_name ||
+                            el.querySelector('small')?.textContent.trim() === data.student_id) {
+                            el.classList.remove('absent');
+                            el.classList.add('present');
+                            let badge = el.querySelector('.badge');
+                            badge.className = 'badge bg-success';
+                            badge.textContent = 'Present';
+                        }
+                    });
+                    showStatus(`✅ Recognized: ${data.student_name} (${data.student_id}) - Confidence: ${data.confidence}%`, 'success');
+                } else {
+                    showStatus(`❌ ${data.error}${data.confidence ? ' (Confidence: ' + data.confidence + '%)' : ''}`, 'warning');
+                }
+                processing = false;
+                captureBtn.disabled = false;
+                canvas.style.display = 'none';
+            })
+            .catch(err => {
+                showStatus('Error: ' + err.message, 'danger');
+                processing = false;
+                captureBtn.disabled = false;
+                canvas.style.display = 'none';
+            });
+        }
+
+        function showStatus(msg, type) {
+            let el = document.getElementById('statusMessage');
+            el.innerHTML = `<div class="alert alert-${type} py-2">${msg}</div>`;
+        }
+
+        function markRemainingAbsent() {
+            let today = '{{ today|date:"Y-m-d" }}';
+            let absentStudents = [];
+            document.querySelectorAll('.student-item.absent').forEach(el => {
+                let nameEl = el.querySelector('strong');
+                let idEl = el.querySelector('small');
+                if (nameEl && idEl) {
+                    absentStudents.push(idEl.textContent.trim());
+                }
+            });
+
+            if (absentStudents.length === 0) {
+                showStatus('All students are already marked present!', 'success');
+                return;
+            }
+
+            fetch('{% url "attendance:process_attendance" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: new URLSearchParams({
+                    'class_name': '{{ class_name }}',
+                    'mark_remaining_absent': 'true',
+                    'student_ids': absentStudents.join(','),
+                    'date': today
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelectorAll('.student-item.absent').forEach(el => {
+                        let badge = el.querySelector('.badge');
+                        badge.className = 'badge bg-danger';
+                        badge.textContent = 'Absent';
+                    });
+                    showStatus('✅ Attendance finalized! Absent students recorded.', 'success');
+                } else {
+                    showStatus('Error: ' + data.error, 'danger');
+                }
+            })
+            .catch(err => showStatus('Error: ' + err.message, 'danger'));
+        }
+
+        window.addEventListener('beforeunload', function() {
+            if (stream) {
+                stream.getTracks().forEach(t => t.stop());
+            }
+        });
+    </script>
+</body>
+</html>

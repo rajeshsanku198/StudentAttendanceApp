@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -43,3 +44,19 @@ class AttendanceRecord(models.Model):
 
     def __str__(self):
         return f'{self.student.student_id} - {self.date} - {self.get_status_display()}'
+
+
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='teacher_profile')
+    assigned_classes = models.CharField(max_length=500, help_text='Comma-separated class names, e.g. CS-301,CS-302')
+    phone = models.CharField(max_length=20, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['user__username']
+
+    def __str__(self):
+        return f'{self.user.get_full_name()} ({self.user.username})'
+
+    def get_class_list(self):
+        return [c.strip() for c in self.assigned_classes.split(',') if c.strip()]
